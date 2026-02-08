@@ -36,11 +36,13 @@ class PostController extends Controller
     {
         // /posts/create post method
         $data = $request->validated();
+        $paths = [];
         if ($request->hasFile('photo')) {
-            $data['path'] = $request->file('photo')->store('posts', 'public');
-        } else {
-            $data['path'] = null;
+            foreach ($request->file('photo') as $image) {
+                $paths[] = $image->store('posts', 'public');
+            }
         }
+        $data['path'] = $paths;
         $post = Post::create($data);
 
         return redirect()->route('posts.show', $post)->with('message', 'Post created');
@@ -75,11 +77,13 @@ class PostController extends Controller
             'content' => $data['content'] ?? $post->content,
             'published_at' => $data['published_at'] ?? $post->published_at,
         ];
+
         if ($request->hasFile('photo')) {
-            $newPost['path'] = $request->file('photo')->store('posts', 'public');
-            if ($post->path) {
-                Storage::disk('public')->delete($post->path);
+            $paths = [];
+            foreach ($request->file('photo') as $image) {
+                $paths[] = $image->store('posts', 'public');
             }
+            $newPost['path'] = $paths;
         } else {
             $newPost['path'] = $post->path;
         }
@@ -93,12 +97,15 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        if ($post->path) {
-            Storage::disk('public')->delete($post->path);
+        if (! empty($post->path)) {
+            foreach ($post->path as $image) {
+                Storage::disk('public')->delete($image);
+            }
         }
+
         $post->delete();
 
-        return redirect()->route('posts.index')->with('mesasge', 'Post deleted successfully');
+        return redirect()->route('posts.index')->with('message', 'Post deleted successfully');
         // return redirect()->back()->with('mesasge', 'Post deleted successfully');
         // return redirect('/posts')
         // return redirect()->to('/posts') // helper function

@@ -8,14 +8,16 @@
                 </h2>
 
                 <p class="text-muted mb-4">
-                    Published on {{ optional($post->created_at)->format('Y-m-d') }}
+                    Published on {{ optional($post->published_at)->format('Y-m-d') }}
                 </p>
 
-                @if ($post->path)
+                @if (!empty($post->path))
+                @foreach ($post->path as $image)
                 <div class="text-center mb-4">
-                    <img src="{{ asset('storage/' . $post->path) }}" class="img-thumbnail rounded-circle"
+                    <img src="{{ asset('storage/' . $image) }}" class="img-thumbnail rounded-circle"
                         style="width:120px; height:120px; object-fit:cover;">
                 </div>
+                @endforeach
                 @else
                 <div class="alert alert-secondary text-center">
                     No image found

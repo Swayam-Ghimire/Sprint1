@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->longText('content');
-            $table->string('path')->nullable();
+            $table->json('path')->nullable();
             $table->date('published_at')->nullable();
             // add foreign user id and category id
             $table->timestamps();

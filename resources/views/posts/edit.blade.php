@@ -43,10 +43,15 @@
 
         <div class="mb-3">
             <label>Photo</label>
-            <input type="file" name="photo" class="form-control">
+            <input type="file" name="photo[]" multiple class="form-control">
 
-            @if ($post->path)
-            <img src="{{ asset('storage/' . $post->path) }}" width="120" class="mt-2">
+            @if (!empty($post->path))
+            @foreach ($post->path as $image)
+            <div class="text-center mb-4">
+                <img src="{{ asset('storage/' . $image) }}" class="img-thumbnail rounded-circle"
+                    style="width:120px; height:120px; object-fit:cover;">
+            </div>
+            @endforeach
             @endif
         </div>
 

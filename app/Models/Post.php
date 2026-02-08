@@ -11,4 +11,8 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = ['title', 'content', 'path', 'published_at'];
+
+    protected $casts = [
+        'path' => 'array',
+    ];
 }

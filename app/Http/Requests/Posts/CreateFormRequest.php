@@ -24,8 +24,9 @@ class CreateFormRequest extends FormRequest
         return [
             'title' => 'required|string|max:10',
             'content' => 'required|string|min:10',
-            'published_at' => 'nullable|date',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'published_at' => 'required|date',
+            'photo' => 'nullable|array',
+            'photo.*' => 'image|mimes:jpeg,png,jpg,gif|max:10240',
         ];
     }
 }
