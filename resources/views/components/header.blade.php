@@ -6,9 +6,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="{{ route('posts.index') }}">All Posts <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="{{ route('posts.create') }}">Create Posts</a>
+            <a class="nav-item nav-link active" href="{{ route('posts.index') }}">All Posts <span
+                    class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link active" href="{{ route('posts.create') }}">Create Posts</a>
             {{-- <a class="nav-item nav-link" href="{{  }}">Create Category</a> --}}
+            <form action="{{ url('/logout') }}" method="post">
+                @csrf
+                <button type="submit" class="btn btn-light">Logout</button>
+            </form>
         </div>
     </div>
 </nav>

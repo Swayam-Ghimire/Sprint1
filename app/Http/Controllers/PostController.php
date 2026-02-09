@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Posts\CreateFormRequest;
 use App\Http\Requests\Posts\UpdateFormRequest;
 use App\Models\Post;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
@@ -43,7 +46,7 @@ class PostController extends Controller
             }
         }
         $data['path'] = $paths;
-        $post = Post::create($data);
+        $post = Auth::user()->posts()->create($data);
 
         return redirect()->route('posts.show', $post)->with('message', 'Post created');
     }
@@ -71,6 +74,7 @@ class PostController extends Controller
     public function update(UpdateFormRequest $request, Post $post)
     {
         //
+        
         $data = $request->validated();
         $newPost = [
             'title' => $data['title'] ?? $post->title,
