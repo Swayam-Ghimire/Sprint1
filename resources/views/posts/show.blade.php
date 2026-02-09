@@ -7,8 +7,12 @@
                     {{ $post->title }}
                 </h2>
 
+                <p class="text-active">
+                    Published By: {{ $post->user->name }}
+                </p>
+
                 <p class="text-muted mb-4">
-                    Published on {{ optional($post->published_at)->format('Y-m-d') }}
+                    Published on {{ \Carbon\Carbon::parse($post->published_at)->format('Y-m-d') }}
                 </p>
 
                 @if (!empty($post->path))
@@ -29,7 +33,7 @@
                         {{ $post->content }}
                     </p>
                 </div>
-
+                @can('view', $post)
                 <div class="d-flex gap-2">
                     <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">
                         Edit
@@ -43,11 +47,11 @@
                         </button>
                     </form>
 
+                    @endcan
                     <a href="{{ route('posts.index') }}" class="btn btn-outline-secondary ms-auto">
                         Back
                     </a>
                 </div>
-
             </div>
         </div>
     </div>

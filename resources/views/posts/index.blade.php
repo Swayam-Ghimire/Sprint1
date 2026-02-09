@@ -25,10 +25,10 @@
                 <td>{{ \Carbon\Carbon::parse($post->published_at)->format('Y-m-d') }}</td>
 
                 <td>
+                    @can('view', $post)
                     <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-sm btn-primary">
                         Edit
                     </a>
-
                     <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
@@ -36,6 +36,8 @@
                             Delete
                         </button>
                     </form>
+                    @endcan
+
                 </td>
             </tr>
             @endforeach

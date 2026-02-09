@@ -15,7 +15,7 @@ Route::get('/token', function (Request $request) {
 });
 
 // Post routes
-Route::middleware('auth:sanctum')->group(function() {
+Route::middleware('auth')->group(function () {
     Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create')->missing(function () {
@@ -28,10 +28,8 @@ Route::middleware('auth:sanctum')->group(function() {
         return redirect()->route('posts.index');
     });
     Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
-    Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+    Route::delete('/posts/{post}/destroy', [PostController::class, 'destroy'])->name('posts.destroy');
 });
-
-// Auth Routes
 
 Route::controller(AuthController::class)->group(function () {
     // show forms
@@ -43,4 +41,3 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register')->name('register.store');
     Route::post('/logout', 'logout')->name('logout');
 });
-

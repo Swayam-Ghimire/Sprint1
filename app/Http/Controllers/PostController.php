@@ -7,11 +7,13 @@ use App\Http\Requests\Posts\UpdateFormRequest;
 use App\Models\Post;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
     use AuthorizesRequests;
+
     /**
      * Display a listing of the resource.
      */
@@ -65,6 +67,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        Gate::authorize('view', $post);
+
         return view('posts.edit', compact('post'));
     }
 
@@ -74,7 +78,8 @@ class PostController extends Controller
     public function update(UpdateFormRequest $request, Post $post)
     {
         //
-        
+        Gate::authorize('update', $post);
+
         $data = $request->validated();
         $newPost = [
             'title' => $data['title'] ?? $post->title,
@@ -101,6 +106,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        Gate::authorize('destroy', $post);
         if (! empty($post->path)) {
             foreach ($post->path as $image) {
                 Storage::disk('public')->delete($image);
