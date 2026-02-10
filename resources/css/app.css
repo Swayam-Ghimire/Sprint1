@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -6,6 +6,51 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans:
+        "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+}
+
+/* Navbar stays fixed height */
+.custom-navbar {
+    position: relative;
+    z-index: 10;
+}
+
+/* Dropdown container */
+.custom-dropdown {
+    position: relative;
+}
+
+/* Toggle */
+.custom-dropdown-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* Dropdown menu */
+.custom-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+
+    min-width: 180px;
+    padding: 0.5rem 0;
+
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.25rem;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    display: none; /* 🔑 prevents navbar expansion */
+    z-index: 999; /* 🔑 overlays content */
+}
+
+/* Show state */
+.custom-dropdown.open .custom-dropdown-menu {
+    display: block;
 }

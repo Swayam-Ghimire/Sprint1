@@ -24,13 +24,13 @@ class AuthController extends Controller
     {
         //
         $credentials = $request->validated();
-
+        // dd(Auth::attempt($credentials)); // true if right cred
         if (! Auth::attempt($credentials)) {
             return back()->withErrors([
                 'email' => 'Invalid credentials',
             ]);
         }
-
+        // dd($request->session()->regenerate()); true
         $request->session()->regenerate();
 
         return redirect()->route('posts.index')->with('message', 'Logged In successfully');
@@ -42,6 +42,7 @@ class AuthController extends Controller
         //
         $data = $request->validated();
         $user = User::create($data);
+        // dd(Auth::login($user)); null
         Auth::login($user);
         $request->session()->regenerate();
 
@@ -51,6 +52,8 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        // dd(Auth::logout());
+        // dd($request->session()->invalidate());
         Auth::logout();
 
         $request->session()->invalidate();

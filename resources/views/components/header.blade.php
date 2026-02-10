@@ -1,19 +1,44 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="{{ route('posts.index') }}">All Posts <span
-                    class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link active" href="{{ route('posts.create') }}">Create Posts</a>
-            {{-- <a class="nav-item nav-link" href="{{  }}">Create Category</a> --}}
-            <form action="{{ url('/logout') }}" method="post">
-                @csrf
-                <button type="submit" class="btn btn-light">Logout</button>
-            </form>
-        </div>
+<nav class="navbar navbar-light bg-light px-4 custom-navbar">
+
+    <div class="ml-auto">
+        <ul class="navbar-nav flex-row align-items-center">
+
+            @guest
+            <li class="nav-item custom-dropdown">
+                <button class="nav-link custom-dropdown-toggle" type="button" aria-expanded="false">
+                    Actions
+                </button>
+
+                <div class="custom-dropdown-menu">
+                    <a class="dropdown-item" href="{{ url('/login') }}">Login</a>
+                    <a class="dropdown-item" href="{{ url('/register') }}">Register</a>
+                </div>
+            </li>
+            @endguest
+
+            @auth
+            <li class="nav-item custom-dropdown">
+                <button class="nav-link custom-dropdown-toggle" type="button" aria-expanded="false">
+                    {{ auth()->user()->name }}
+                </button>
+
+                <div class="custom-dropdown-menu">
+                    <a class="dropdown-item" href="{{ route('posts.index') }}">All Posts</a>
+                    <a class="dropdown-item" href="{{ route('posts.create') }}">Create Post</a>
+
+                    <div class="dropdown-divider"></div>
+
+                    <form action="{{ route('logout') }}" method="POST" class="px-3">
+                        @csrf
+                        <button class="btn btn-sm btn-outline-danger btn-block">
+                            Logout
+                        </button>
+                    </form>
+                </div>
+            </li>
+            @endauth
+
+        </ul>
     </div>
+
 </nav>
