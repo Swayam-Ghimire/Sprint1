@@ -11,13 +11,19 @@ class Post extends Model
     //
     use HasFactory;
 
-    protected $fillable = ['title', 'content', 'path', 'published_at'];
+    protected $fillable = ['title', 'content', 'path', 'published_at', 'category_id'];
 
     protected $casts = [
         'path' => 'array',
     ];
 
-    public function user() :BelongsTo {
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class);
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
     }
 }

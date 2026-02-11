@@ -27,6 +27,7 @@ class CreateFormRequest extends FormRequest
             'published_at' => 'required|date',
             'photo' => 'nullable|array',
             'photo.*' => 'image|mimes:jpeg,png,jpg,gif|max:10240',
+            'category_id' => 'required|integer',
         ];
     }
 }

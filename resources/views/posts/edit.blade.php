@@ -21,18 +21,19 @@
             <input type="date" name="published_at" class="form-control-file" id="date">
         </div>
 
-        {{-- <div class="mb-3">
-            <label>Category</label>
-            <select name="category_id" class="form-control">
-                @foreach ($categories as $category)
-                <option value="{{ $category->id }}" {{ $category->id == old('category_id', $post->category_id) ?
-                    'selected' : '' }}>
-                    {{ $category->name }}
-                </option>
-                @endforeach
-            </select>
-        </div> --}}
+        <div class="form-group">
+            <label for="category_id">Category</label>
 
+            <select name="category_id" id="category_id" class="form-control @error('category_id') is-invalid @enderror">
+                <option value="">-- Select Category --</option>
+
+                {{-- @foreach($categories as $category) --}}
+                <option value=2 selected>
+                    Fun
+                </option>
+                {{-- @endforeach --}}
+            </select>
+        </div>
         <div class="mb-3">
             <label>Photo</label>
             <input type="file" name="photo[]" multiple class="form-control">

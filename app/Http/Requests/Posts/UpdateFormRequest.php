@@ -25,6 +25,7 @@ class UpdateFormRequest extends FormRequest
             'title' => 'sometimes|string|max:10',
             'content' => 'sometimes|string|min:10',
             'published_at' => 'sometimes|nullable|date',
+            'catergory_id' => 'sometimes|required',
             'photo' => 'sometimes|nullable|array',
             'photo.*' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
         ];
