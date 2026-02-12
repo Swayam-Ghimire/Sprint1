@@ -26,8 +26,20 @@ class CreateFormRequest extends FormRequest
             'content' => 'required|string|min:10',
             'published_at' => 'required|date',
             'photo' => 'nullable|array',
-            'photo.*' => 'image|mimes:jpeg,png,jpg,gif|max:10240',
+            'photo.*' => 'bail|image|mimes:jpeg,png,jpg,webp|max:10240',
             'category_id' => 'required|integer',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'title.required' => "Can't you even write 10 words for title?",
+            'content.required' => 'Just write more that 10 words for content dudeee',
+            'category_id.required' => 'Select some categories come on!!',
+            'published_at.required' => "What's today's date? ",
+            'photo.*.image' => 'Only image type is allowed !!',
+            'photo.*.mimes' => 'Photos must be jpeg, png, jpg, or webp.',
         ];
     }
 }

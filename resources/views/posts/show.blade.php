@@ -10,6 +10,9 @@
                 <p class="text-active">
                     Published By: {{ $post->user->name }}
                 </p>
+                <p class="text-active">
+                    Category: {{ $post->category->name }}
+                </p>
 
                 <p class="text-muted mb-4">
                     Published on {{ \Carbon\Carbon::parse($post->published_at)->format('Y-m-d') }}

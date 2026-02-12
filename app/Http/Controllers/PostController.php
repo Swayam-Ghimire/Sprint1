@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Posts\CreateFormRequest;
 use App\Http\Requests\Posts\UpdateFormRequest;
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +32,9 @@ class PostController extends Controller
     public function create()
     {
         //
-        return view('posts.create');
+        $categories = Category::all();
+
+        return view('posts.create', compact('categories'));
     }
 
     /**
@@ -69,7 +72,9 @@ class PostController extends Controller
     {
         Gate::authorize('view', $post);
 
-        return view('posts.edit', compact('post'));
+        $categories = Category::all();
+
+        return view('posts.edit', compact('post', 'categories'));
     }
 
     /**
@@ -84,6 +89,7 @@ class PostController extends Controller
         $newPost = [
             'title' => $data['title'] ?? $post->title,
             'content' => $data['content'] ?? $post->content,
+            'category_id' => $data['category_id'] ?? $post->category_id,
             'published_at' => $data['published_at'] ?? $post->published_at,
         ];
 
@@ -106,7 +112,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        Gate::authorize('destroy', $post);
+        Gate::authorize('delete', $post);
         if (! empty($post->path)) {
             foreach ($post->path as $image) {
                 Storage::disk('public')->delete($image);

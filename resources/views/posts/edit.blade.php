@@ -27,11 +27,11 @@
             <select name="category_id" id="category_id" class="form-control @error('category_id') is-invalid @enderror">
                 <option value="">-- Select Category --</option>
 
-                {{-- @foreach($categories as $category) --}}
-                <option value=2 selected>
-                    Fun
+                @foreach($categories as $category)
+                <option value={{ $category->id }}>
+                    {{ $category->name }}
                 </option>
-                {{-- @endforeach --}}
+                @endforeach
             </select>
         </div>
         <div class="mb-3">

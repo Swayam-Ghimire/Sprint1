@@ -9,7 +9,10 @@ class Category extends Model
 {
     protected $fillable = ['name'];
 
-    public function posts() :HasMany{
+    protected $casts = ['created_at', 'updated_at'];
+
+    public function posts(): HasMany
+    {
         return $this->hasMany(Post::class);
     }
 }
