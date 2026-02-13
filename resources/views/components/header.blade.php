@@ -1,5 +1,4 @@
 <nav class="navbar navbar-light bg-light px-4 custom-navbar">
-
     <div class="ml-auto">
         <ul class="navbar-nav flex-row align-items-center">
 
@@ -37,8 +36,25 @@
                 </div>
             </li>
             @endauth
-
         </ul>
     </div>
+    @auth
+    <div class="ml-4">
+        <ul class="navbar-nav flex-row align-items-center">
+            <li class="nav-item custom-dropdown">
+                <button class="nav-link custom-dropdown-toggle" type="button">
+                    Top Categories
+                </button>
 
+                <div class="custom-dropdown-menu">
+                    @foreach($topCategories as $category)
+                    <a class="dropdown-item" href="#">
+                        {{ $category->name }}
+                    </a>
+                    @endforeach
+                </div>
+            </li>
+        </ul>
+    </div>
+    @endauth
 </nav>

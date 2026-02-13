@@ -21,9 +21,11 @@ class PostController extends Controller
     public function index()
     {
         //
-        $posts = Post::orderBy('published_at', 'desc')->paginate(10);
+        $topCategories = Category::topCategories();
+        // dd($topCategories);
+        $posts = Post::orderBy('published_at')->paginate(10);
 
-        return view('posts.index', compact('posts'));
+        return view('posts.index', compact('posts', 'topCategories'));
     }
 
     /**

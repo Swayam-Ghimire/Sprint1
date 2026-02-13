@@ -1,4 +1,4 @@
-<x-layouts.app>
+<x-layouts.app :topCategories=$topCategories title="All Posts">
     <table class="table">
         <thead>
             <tr>

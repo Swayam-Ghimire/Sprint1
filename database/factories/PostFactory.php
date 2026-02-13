@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +21,9 @@ class PostFactory extends Factory
         return [
             'title' => fake()->text(8),
             'content' => fake()->paragraph(5),
-            'published_at' => fake()->dateTimeBetween('now', '+1 year'),
+            'published_at' => fake()->dateTimeBetween('-30 days', 'now'),
+            'user_id' => User::inRandomOrder()->first()->id,
+            'category_id' => Category::inRandomOrder()->first()->id,
         ];
     }
 }

@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    @include('components.header')
+    @include('components.header', ['topCategories' => $topCategories ?? []])
     {{-- flash message --}}
     @if(session('message'))
     <div class="alert alert-success">
