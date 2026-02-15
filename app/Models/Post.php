@@ -2,22 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
 {
     //
     use HasFactory;
 
-    protected $fillable = ['title', 'content', 'path', 'published_at', 'category_id'];
-
-    protected $casts = [
-        'path' => 'array',
-    ];
+    protected $fillable = ['title', 'content', 'published_at', 'category_id'];
 
     public function user(): BelongsTo
     {
@@ -27,5 +22,21 @@ class Post extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
+    }
+
+    public static function deleteImage(Post $post)
+    {
+        if ($post->images->isNotEmpty()) {
+            foreach ($post->images as $image) {
+                Storage::disk('public')->delete($image->path);
+            }
+            $post->images()->delete();
+
+        }
     }
 }

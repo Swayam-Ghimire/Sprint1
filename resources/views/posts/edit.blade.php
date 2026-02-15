@@ -38,10 +38,10 @@
             <label>Photo</label>
             <input type="file" name="photo[]" multiple class="form-control">
 
-            @if (!empty($post->path))
-            @foreach ($post->path as $image)
+            @if ($post->images)
+            @foreach ($post->images as $image)
             <div class="text-center mb-4">
-                <img src="{{ asset('storage/' . $image) }}" class="img-thumbnail rounded-circle"
+                <img src="{{ asset('storage/' . $image->path) }}" class="img-thumbnail rounded-circle"
                     style="width:120px; height:120px; object-fit:cover;">
             </div>
             @endforeach

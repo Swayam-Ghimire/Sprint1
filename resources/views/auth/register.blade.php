@@ -6,7 +6,7 @@
 
                 <h4 class="text-center mb-4">Register</h4>
 
-                <form method="POST" action="{{ route('register.store') }}">
+                <form method="POST" action="{{ route('register.store') }}" enctype="multipart/form-data">
                     @csrf
 
                     <div class="form-group">
@@ -28,6 +28,10 @@
                         <label>Confirm Password</label>
                         <input type="password" name="password_confirmation" class="form-control"
                             placeholder="Confirm password">
+                    </div>
+                    <div class="form-group">
+                        <label>Profile Picture</label>
+                        <input type="file" name="profile_picture" class="form-control-file">
                     </div>
 
                     <x-error />

@@ -7303,26 +7303,58 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap.js */ "./resources/js/bootstrap.js");
 
 document.addEventListener("DOMContentLoaded", function () {
-  document.querySelectorAll(".custom-dropdown-toggle").forEach(function (toggle) {
+  var dropdowns = document.querySelectorAll(".custom-dropdown");
+  dropdowns.forEach(function (dropdown) {
+    var toggle = dropdown.querySelector(".custom-dropdown-toggle");
     toggle.addEventListener("click", function (e) {
       e.stopPropagation();
-      var dropdown = toggle.closest(".custom-dropdown");
-
-      // close other dropdowns
-      document.querySelectorAll(".custom-dropdown.open").forEach(function (d) {
-        return d !== dropdown && d.classList.remove("open");
+      dropdowns.forEach(function (d) {
+        if (d !== dropdown) d.classList.remove("open");
       });
       dropdown.classList.toggle("open");
     });
   });
 
-  // click outside closes dropdown
+  // Click outside closes dropdown
   document.addEventListener("click", function () {
-    document.querySelectorAll(".custom-dropdown.open").forEach(function (d) {
+    dropdowns.forEach(function (d) {
       return d.classList.remove("open");
     });
   });
+
+  // ESC key closes dropdown
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      dropdowns.forEach(function (d) {
+        return d.classList.remove("open");
+      });
+    }
+  });
 });
+
+// document.addEventListener("DOMContentLoaded", () => {
+//     document.querySelectorAll(".custom-dropdown-toggle").forEach((toggle) => {
+//         toggle.addEventListener("click", (e) => {
+//             e.stopPropagation();
+
+//             const dropdown = toggle.closest(".custom-dropdown");
+
+//             // close other dropdowns
+//             document
+//                 .querySelectorAll(".custom-dropdown.open")
+//                 .forEach((d) => d !== dropdown && d.classList.remove("open"));
+
+//             dropdown.classList.toggle("open");
+//         });
+//     });
+
+//     // click outside closes dropdown
+//     document.addEventListener("click", () => {
+//         document
+//             .querySelectorAll(".custom-dropdown.open")
+//             .forEach((d) => d.classList.remove("open"));
+//     });
+// });
 
 /***/ },
 

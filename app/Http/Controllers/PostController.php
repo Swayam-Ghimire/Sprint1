@@ -52,8 +52,11 @@ class PostController extends Controller
                 $paths[] = $image->store('posts', 'public');
             }
         }
-        $data['path'] = $paths;
+        // $data['path'] = $paths;
         $post = Auth::user()->posts()->create($data);
+        foreach ($paths as $path) {
+            $post->images()->create(['path' => $path]);
+        }
 
         return redirect()->route('posts.show', $post)->with('message', 'Post created');
     }
@@ -95,16 +98,28 @@ class PostController extends Controller
             'published_at' => $data['published_at'] ?? $post->published_at,
         ];
 
+        $post->update($newPost);
         if ($request->hasFile('photo')) {
             $paths = [];
             foreach ($request->file('photo') as $image) {
                 $paths[] = $image->store('posts', 'public');
             }
-            $newPost['path'] = $paths;
-        } else {
-            $newPost['path'] = $post->path;
+            // $newPost['path'] = $paths;
+            // if ($post->images->isNotEmpty()) {
+            //     foreach ($post->images as $image) {
+            //         Storage::disk('public')->delete($image->path);
+            //     }
+            //     $post->images()->delete();
+
+            // }
+            // delete image 
+            Post::deleteImage($post);
+
+            // create new image record
+            foreach ($paths as $path) {
+                $post->images()->create(['path' => $path]);
+            }
         }
-        $post->update($newPost);
 
         return redirect()->route('posts.show', $post)->with('message', 'Post updated successfully');
     }
@@ -115,12 +130,13 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         Gate::authorize('delete', $post);
-        if (! empty($post->path)) {
-            foreach ($post->path as $image) {
-                Storage::disk('public')->delete($image);
-            }
-        }
-
+        // if ($post->images->isNotEmpty()) {
+        //     foreach ($post->images as $image) {
+        //         Storage::disk('public')->delete($image->path);
+        //     }
+        //     $post->images()->delete();
+        // }
+        Post::deleteImage($post);
         $post->delete();
 
         return redirect()->route('posts.index')->with('message', 'Post deleted successfully');
