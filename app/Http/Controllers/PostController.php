@@ -34,9 +34,10 @@ class PostController extends Controller
     public function create()
     {
         //
+        $topCategories = Category::topCategories();
         $categories = Category::all();
 
-        return view('posts.create', compact('categories'));
+        return view('posts.create', compact('categories', 'topCategories'));
     }
 
     /**
@@ -77,9 +78,11 @@ class PostController extends Controller
     {
         Gate::authorize('view', $post);
 
+        $topCategories = Category::topCategories();
+
         $categories = Category::all();
 
-        return view('posts.edit', compact('post', 'categories'));
+        return view('posts.edit', compact('post', 'categories', 'topCategories'));
     }
 
     /**
@@ -112,7 +115,7 @@ class PostController extends Controller
             //     $post->images()->delete();
 
             // }
-            // delete image 
+            // delete image
             Post::deleteImage($post);
 
             // create new image record

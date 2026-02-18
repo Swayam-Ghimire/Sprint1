@@ -33,6 +33,13 @@ class CategoryController extends Controller
 
     public function delete(Category $category)
     {
+        if ($category->posts()->exists()) {
+            return response()->json([
+                'message' => 'You cannot delete this category because it has posts',
+                'category' => new CategoryResource($category),
+            ], 400);
+        }
+
         $category->delete();
 
         return response()->json([

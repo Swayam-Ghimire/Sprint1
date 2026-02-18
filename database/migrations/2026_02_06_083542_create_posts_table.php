@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('published_at')->nullable();
             // add foreign user id and category id
             $table->timestamps();
+            
         });
     }
 

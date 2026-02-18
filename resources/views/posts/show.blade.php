@@ -7,10 +7,10 @@
                     {{ $post->title }}
                 </h2>
 
-                <p class="text-active">
+                <p class="text-muted"> {{-- Changed to text-muted for consistency --}}
                     Published By: {{ $post->user->name }}
                 </p>
-                <p class="text-active">
+                <p class="text-muted"> {{-- Changed to text-muted for consistency --}}
                     Category: {{ $post->category->name }}
                 </p>
 
@@ -18,13 +18,15 @@
                     Published on {{ \Carbon\Carbon::parse($post->published_at)->format('Y-m-d') }}
                 </p>
 
-                @if ($post->images)
-                @foreach ($post->images as $image)
-                <div class="text-center mb-4">
-                    <img src="{{ asset('storage/' . $image->path) }}" class="img-thumbnail rounded-circle"
-                        style="width:120px; height:120px; object-fit:cover;">
+                @if ($post->images && count($post->images) > 0)
+                <div class="row justify-content-center mb-4"> {{-- Use Bootstrap row/col for image layout --}}
+                    @foreach ($post->images as $image)
+                    <div class="col-auto"> {{-- Use col-auto to fit content width --}}
+                        <img src="{{ asset('storage/' . $image->path) }}" class="img-thumbnail rounded-circle"
+                            style="width:120px; height:120px; object-fit:cover;">
+                    </div>
+                    @endforeach
                 </div>
-                @endforeach
                 @else
                 <div class="alert alert-secondary text-center">
                     No image found
@@ -32,29 +34,37 @@
                 @endif
 
                 <div class="mb-4">
-                    <p class="fs-5">
+                    <p class="lead"> {{-- Replaced fs-5 with lead for Bootstrap 4 compatibility --}}
                         {{ $post->content }}
                     </p>
                 </div>
-                @can('view', $post)
-                <div class="d-flex gap-2">
-                    <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">
-                        Edit
-                    </a>
 
-                    <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger">
-                            Delete
-                        </button>
-                    </form>
+                {{-- Action Buttons --}}
+                <div class="d-flex justify-content-between align-items-center mt-4"> {{-- Replaced Tailwind flex
+                    utilities --}}
+                    <div>
+                        @can('view', $post)
+                        <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary me-2"> {{-- Added me-2 for
+                            spacing --}}
+                            Edit
+                        </a>
 
-                    @endcan
-                    <a href="{{ route('posts.index') }}" class="btn btn-outline-secondary ms-auto">
+                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST" class="d-inline"> {{--
+                            Ensured form is inline --}}
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger">
+                                Delete
+                            </button>
+                        </form>
+                        @endcan
+                    </div>
+                    <a href="{{ route('posts.index') }}" class="btn btn-outline-secondary"> {{-- Replaced ms-auto with
+                        ml-auto --}}
                         Back
                     </a>
                 </div>
+
             </div>
         </div>
     </div>

@@ -7302,59 +7302,25 @@ const isIterable = (thing) => thing != null && isFunction(thing[iterator]);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap.js */ "./resources/js/bootstrap.js");
 
+
+// Optional: Document ready
 document.addEventListener("DOMContentLoaded", function () {
-  var dropdowns = document.querySelectorAll(".custom-dropdown");
-  dropdowns.forEach(function (dropdown) {
-    var toggle = dropdown.querySelector(".custom-dropdown-toggle");
-    toggle.addEventListener("click", function (e) {
-      e.stopPropagation();
-      dropdowns.forEach(function (d) {
-        if (d !== dropdown) d.classList.remove("open");
-      });
-      dropdown.classList.toggle("open");
-    });
-  });
-
-  // Click outside closes dropdown
-  document.addEventListener("click", function () {
-    dropdowns.forEach(function (d) {
-      return d.classList.remove("open");
-    });
-  });
-
-  // ESC key closes dropdown
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") {
-      dropdowns.forEach(function (d) {
-        return d.classList.remove("open");
-      });
-    }
-  });
+  console.log("Bootstrap JS loaded, DOM fully loaded.");
 });
 
-// document.addEventListener("DOMContentLoaded", () => {
-//     document.querySelectorAll(".custom-dropdown-toggle").forEach((toggle) => {
-//         toggle.addEventListener("click", (e) => {
-//             e.stopPropagation();
+// If you have any custom JS in the future, you can add it here
+// e.g., image previews, alert auto-close, or form enhancements
 
-//             const dropdown = toggle.closest(".custom-dropdown");
-
-//             // close other dropdowns
-//             document
-//                 .querySelectorAll(".custom-dropdown.open")
-//                 .forEach((d) => d !== dropdown && d.classList.remove("open"));
-
-//             dropdown.classList.toggle("open");
-//         });
-//     });
-
-//     // click outside closes dropdown
-//     document.addEventListener("click", () => {
-//         document
-//             .querySelectorAll(".custom-dropdown.open")
-//             .forEach((d) => d.classList.remove("open"));
-//     });
-// });
+// Example: Auto-hide flash messages after 5 seconds
+var flashMessage = document.querySelector('.alert');
+if (flashMessage) {
+  setTimeout(function () {
+    flashMessage.classList.add('fade');
+    flashMessage.addEventListener('transitionend', function () {
+      return flashMessage.remove();
+    });
+  }, 5000);
+}
 
 /***/ },
 

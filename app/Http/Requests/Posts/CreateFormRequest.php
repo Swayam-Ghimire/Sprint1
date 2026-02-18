@@ -24,7 +24,7 @@ class CreateFormRequest extends FormRequest
         return [
             'title' => 'required|string|max:10',
             'content' => 'required|string|min:10',
-            'published_at' => 'required|date',
+            'published_at' => 'required|date|before_or_equal:now',
             'photo' => 'nullable|array',
             'photo.*' => 'bail|image|mimes:jpeg,png,jpg,webp|max:10240',
             'category_id' => 'required|integer',
