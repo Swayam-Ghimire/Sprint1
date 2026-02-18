@@ -15,7 +15,7 @@
                     <input type="text" name="title" id="title" value="{{ old('title') }}"
                         class="form-control @error('title') is-invalid @enderror">
                     @error('title')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                    <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
 
@@ -25,7 +25,7 @@
                     <textarea name="content" id="content" rows="5"
                         class="form-control @error('content') is-invalid @enderror">{{ old('content') }}</textarea>
                     @error('content')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                    <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
 
@@ -35,34 +35,40 @@
                     <input type="date" name="published_at" id="published_at" value="{{ old('published_at') }}"
                         class="form-control @error('published_at') is-invalid @enderror">
                     @error('published_at')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                    <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
 
                 {{-- Category --}}
                 <div class="form-group">
                     <label for="category_id">Category</label>
-                    <select name="category_id" id="category_id" class="form-control @error('category_id') is-invalid @enderror">
+                    <select name="category_id" id="category_id"
+                        class="form-control @error('category_id') is-invalid @enderror">
                         <option value="">-- Select Category --</option>
                         @foreach($categories as $category)
-                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                                {{ $category->name }}
-                            </option>
+                        <option value="{{ $category->id }}" {{ old('category_id')==$category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
                         @endforeach
                     </select>
                     @error('category_id')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                    <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
 
                 {{-- Photos --}}
                 <div class="form-group">
                     <label for="photo">Upload Photos</label>
-                    <input type="file" name="photo[]" id="photo" multiple class="form-control-file">
+                    <input type="file" name="photo[]" id="photo" multiple class="form-control-file"
+                        style="display: block; width: 100%; padding: 8px 12px; border: 1px solid #ced4da; border-radius: 6px; background-color: #fff; cursor: pointer;">
                     @error('photo.*')
-                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
+
+
+
+
 
                 {{-- Submit --}}
                 <button type="submit" class="btn btn-primary btn-block">Create Post</button>

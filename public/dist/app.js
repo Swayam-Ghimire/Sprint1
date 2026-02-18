@@ -7301,22 +7301,19 @@ const isIterable = (thing) => thing != null && isFunction(thing[iterator]);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap.js */ "./resources/js/bootstrap.js");
+Object(function webpackMissingModule() { var e = new Error("Cannot find module 'bs-custom-file-input'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 
 
-// Optional: Document ready
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("Bootstrap JS loaded, DOM fully loaded.");
+  Object(function webpackMissingModule() { var e = new Error("Cannot find module 'bs-custom-file-input'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())(); // Automatically updates file input labels
 });
 
-// If you have any custom JS in the future, you can add it here
-// e.g., image previews, alert auto-close, or form enhancements
-
 // Example: Auto-hide flash messages after 5 seconds
-var flashMessage = document.querySelector('.alert');
+var flashMessage = document.querySelector(".alert");
 if (flashMessage) {
   setTimeout(function () {
-    flashMessage.classList.add('fade');
-    flashMessage.addEventListener('transitionend', function () {
+    flashMessage.classList.add("fade");
+    flashMessage.addEventListener("transitionend", function () {
       return flashMessage.remove();
     });
   }, 5000);

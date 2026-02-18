@@ -62,7 +62,7 @@
                 {{-- Upload New Photos --}}
                 <div class="form-group">
                     <label for="photo">Upload New Photos</label>
-                    <input type="file" name="photo[]" id="photo" multiple class="form-control-file">
+                    <input type="file" name="photo[]" id="photo" multiple class="form-control-file" style="display: block; width: 100%; padding: 8px 12px; border: 1px solid #ced4da; border-radius: 6px; background-color: #fff; cursor: pointer;">
                     @error('photo.*')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
@@ -70,7 +70,7 @@
 
                 {{-- Existing Photos --}}
                 @if ($post->images && count($post->images) > 0)
-                <div class="row justify-content-center mb-4"> {{-- Use Bootstrap row/col for image layout --}}
+                <div class="row justify-content-center mb-4"> 
                     @foreach ($post->images as $image)
                     <div class="col-auto"> {{-- Use col-auto to fit content width --}}
                         <img src="{{ asset('storage/' . $image->path) }}" class="img-thumbnail rounded-circle"

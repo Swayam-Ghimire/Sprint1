@@ -30,9 +30,13 @@
                             placeholder="Confirm password">
                     </div>
                     <div class="form-group">
-                        <label>Profile Picture</label>
-                        <input type="file" name="profile_picture" class="form-control-file">
+                        <label for="profile_picture">Profile Picture</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="profile_picture" id="profile_picture">
+                            <label class="custom-file-label" for="profile_picture">Choose file</label>
+                        </div>
                     </div>
+
 
                     <x-error />
 

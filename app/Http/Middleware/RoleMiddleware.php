@@ -17,7 +17,7 @@ class RoleMiddleware
     public function handle(Request $request, Closure $next, ...$role): Response
     {
         if (! Auth::user()->roles()->whereIn('name', $role)->exists()) {
-            return response()->json(['message' => 'Forbidden'], 403);
+            abort(403, 'Unauthorized');
         }
 
         return $next($request);

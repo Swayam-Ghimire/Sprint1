@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
@@ -40,4 +41,10 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/login', 'login')->name('login.store');
     Route::post('/register', 'register')->name('register.store');
     Route::post('/logout', 'logout')->name('logout');
+});
+
+// Admin Routes
+
+Route::controller(AdminController::class)->prefix('admin')->middleware('role:admin')->group(function () {
+    Route::get('/dashboard', 'index')->name('admin.dashboard');
 });
