@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
@@ -31,6 +32,10 @@ class AppServiceProvider extends ServiceProvider
         });
         Gate::define('isMember', function (User $user) {
             return $user->roles()->where('name', 'member')->exists();
+        });
+
+        view()->composer('components.layouts.app', function ($view) {
+            $view->with('topCategories', Category::topCategories());
         });
 
     }

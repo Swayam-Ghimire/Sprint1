@@ -1,4 +1,4 @@
-<x-layouts.app :topCategories="$topCategories" title="Edit Post">
+<x-layouts.app title="Edit Post">
     <div class="card shadow-sm">
         <div class="card-body">
             <h2 class="mb-4">Edit Post</h2>

@@ -21,11 +21,9 @@ class PostController extends Controller
     public function index()
     {
         //
-        $topCategories = Category::topCategories();
-        // dd($topCategories);
         $posts = Post::orderBy('published_at')->paginate(10);
 
-        return view('posts.index', compact('posts', 'topCategories'));
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -34,10 +32,9 @@ class PostController extends Controller
     public function create()
     {
         //
-        $topCategories = Category::topCategories();
         $categories = Category::all();
 
-        return view('posts.create', compact('categories', 'topCategories'));
+        return view('posts.create', compact('categories'));
     }
 
     /**
@@ -78,11 +75,9 @@ class PostController extends Controller
     {
         Gate::authorize('view', $post);
 
-        $topCategories = Category::topCategories();
-
         $categories = Category::all();
 
-        return view('posts.edit', compact('post', 'categories', 'topCategories'));
+        return view('posts.edit', compact('post', 'categories'));
     }
 
     /**

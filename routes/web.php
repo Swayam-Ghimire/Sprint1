@@ -1,19 +1,12 @@
 <?php
 
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\PostController as AdminPostController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
-Route::get('/token', function (Request $request) {
-    $token = $request->session()->token();
-
-    dump($token);
-    $token1 = csrf_token();
-
-    dump($token1);
-});
 
 // Post routes
 Route::middleware('auth')->group(function () {
@@ -45,6 +38,24 @@ Route::controller(AuthController::class)->group(function () {
 
 // Admin Routes
 
-Route::controller(AdminController::class)->prefix('admin')->middleware('role:admin')->group(function () {
-    Route::get('/dashboard', 'index')->name('admin.dashboard');
+Route::prefix('admin')->middleware('role:admin')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::controller(UserController::class)->group(function () {
+        Route::get('/users', 'index')->name('admin.user');
+        Route::get('/users/role/edit/{user}', 'editRole')->name('admin.user.role.edit');
+        Route::put('/users/role/update/{user}', 'updateRole')->name('admin.user.role.update');
+        Route::delete('/users/delete/{user}', 'delete')->name('admin.user.destroy');
+    });
+    Route::controller(AdminPostController::class)->group(function () {
+        Route::get('/post', 'index')->name('admin.post');
+    });
+    Route::controller(CategoryController::class)->group(function () {
+        Route::get('/category', 'index')->name('admin.category');
+        Route::get('/edit/{category}', 'edit')->name('admin.category.edit');
+        Route::get('/create', 'create')->name('admin.category.create');
+        Route::post('/create/category', 'store')->name('admin.category.store');
+        Route::put('/update/{category}', 'update')->name('admin.category.update');
+        Route::delete('/destroy/{category}', 'delete')->name('admin.category.delete');
+    });
+
 });

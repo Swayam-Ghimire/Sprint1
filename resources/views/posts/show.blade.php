@@ -61,8 +61,14 @@
                     </div>
                     <a href="{{ route('posts.index') }}" class="btn btn-outline-secondary"> {{-- Replaced ms-auto with
                         ml-auto --}}
-                        Back
+                        All Posts
                     </a>
+                    @can('isAdmin')
+                    <a href="{{ route('admin.post') }}" class="btn btn-outline-secondary"> {{-- Replaced ms-auto with
+                        ml-auto --}}
+                        Dashboard
+                    </a>
+                    @endcan
                 </div>
 
             </div>

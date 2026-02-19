@@ -1,4 +1,4 @@
-<x-layouts.app title="All Posts">
+<x-layouts.app title="Post Management">
     <div class="card shadow-sm mb-4">
         <div class="card-body">
             <h2 class="mb-4">All Posts</h2>
@@ -25,16 +25,20 @@
                             </td>
                             <td>{{ \Carbon\Carbon::parse($post->published_at)->format('Y-m-d') }}</td>
                             <td>
-                                @can('view', $post)
+                                @can('isAdmin')
                                 <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-sm btn-primary mb-1">
                                     Edit
                                 </a>
+                                @endcan
+                                {{-- @cannot('isEditor')
+                                <span class="text-muted">No actions available for admin users</span>
+
+                                @endcannot --}}
                                 <form action="{{ route('posts.destroy', $post->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-sm btn-danger mb-1">Delete</button>
                                 </form>
-                                @endcan
                             </td>
                         </tr>
                         @endforeach

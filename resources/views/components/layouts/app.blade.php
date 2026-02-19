@@ -9,9 +9,10 @@
     {{-- Bootstrap 4 --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('dist/app.css') }}">
+    {{--
+    <link rel="stylesheet" href="{{ asset('dist/app.css') }}"> --}}
     {{-- Custom CSS --}}
-    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <title>{{ $title ?? config('app.name') }}</title>
 </head>
@@ -22,7 +23,7 @@
     @include('components.header', ['topCategories' => $topCategories ?? []])
 
     {{-- Main Content Area --}}
-    <main class="container py-5">
+    <main class="container py-4">
 
         {{-- Flash Message --}}
         @if(session('message'))
@@ -42,7 +43,7 @@
     <x-footer />
 
     {{-- Bootstrap JS --}}
-    <script src="{{ asset('dist/app.js') }}" defer></script>
+    {{-- <script src="{{ asset('dist/app.js') }}" defer></script> --}}
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>

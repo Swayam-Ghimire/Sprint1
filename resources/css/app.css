@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+@import '@fortawesome/fontawesome-free/css/all.css';
 @source '../**/*.blade.php';
 
 /* ========================================
@@ -22,7 +22,11 @@
 
 body {
     background-color: var(--light-bg);
-    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family:
+        "Segoe UI",
+        -apple-system,
+        BlinkMacSystemFont,
+        sans-serif;
     color: var(--text-dark);
     line-height: 1.6;
 }
@@ -45,8 +49,12 @@ a {
     z-index: 1000;
     height: 70px;
     padding: 0 2rem;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    background: linear-gradient(
+        135deg,
+        var(--primary-color),
+        var(--secondary-color)
+    );
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
 }
 
@@ -108,7 +116,7 @@ a {
 
 .profile-avatar:hover {
     transform: scale(1.08);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* ========================================
@@ -117,7 +125,7 @@ a {
 
 .dropdown-menu {
     border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     border: none;
 }
 
@@ -130,7 +138,6 @@ a {
     background-color: var(--border-color);
 }
 
-
 /* ========================================
    CARDS
 ======================================== */
@@ -138,13 +145,13 @@ a {
 .card {
     border: none;
     border-radius: 16px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
     transition: all 0.25s ease;
 }
 
 .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
 }
 
 .card-title {
@@ -170,7 +177,7 @@ a {
     background-color: var(--primary-hover);
     border-color: var(--primary-hover);
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(79,70,229,0.3);
+    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.3);
 }
 
 .btn-light {
@@ -195,7 +202,7 @@ a {
 
 .form-control:focus {
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(79,70,229,0.15);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
 }
 
 /* ========================================
@@ -246,7 +253,7 @@ a {
     border-radius: 14px;
     max-height: 250px;
     object-fit: cover;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
 }
 
 /* ========================================
@@ -258,6 +265,18 @@ footer {
     padding: 20px 0;
     font-size: 14px;
     color: #6b7280;
+}
+
+/* ========================================
+Dashboard
+======================================== */
+.dashboard-card {
+    transition: all 0.2s ease-in-out;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.08) !important;
 }
 
 /* ========================================

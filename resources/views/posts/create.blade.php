@@ -1,4 +1,4 @@
-<x-layouts.app :topCategories="$topCategories" title="Create Post">
+<x-layouts.app title="Create Post">
     <div class="card shadow-sm">
         <div class="card-body">
             <h2 class="mb-4">Create New Post</h2>
