@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\PostController as AdminPostController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 // Post routes
@@ -59,3 +60,11 @@ Route::prefix('admin')->middleware('role:admin')->group(function () {
     });
 
 });
+// Notification
+Route::get('/notification/{id}', function (string $id) {
+    $notification = Auth::user()->notifications()->findOrFail($id);
+    $notification->markAsRead();
+
+    return back();
+
+})->name('notification.read');

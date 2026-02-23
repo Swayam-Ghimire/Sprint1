@@ -25,20 +25,18 @@
                             </td>
                             <td>{{ \Carbon\Carbon::parse($post->published_at)->format('Y-m-d') }}</td>
                             <td>
-                                @can('isAdmin')
+                                @can('viewEdit', $post)
                                 <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-sm btn-primary mb-1">
                                     Edit
                                 </a>
                                 @endcan
-                                {{-- @cannot('isEditor')
-                                <span class="text-muted">No actions available for admin users</span>
-
-                                @endcannot --}}
+                                @can('viewDelete', $post)
                                 <form action="{{ route('posts.destroy', $post->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-sm btn-danger mb-1">Delete</button>
                                 </form>
+                                @endcan
                             </td>
                         </tr>
                         @endforeach

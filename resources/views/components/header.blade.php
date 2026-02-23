@@ -30,6 +30,45 @@
             </div>
         </div>
 
+        {{-- Notifications --}}
+        <div class="dropdown mr-3">
+            <button class="btn btn-light btn-sm position-relative" type="button" id="notificationDropdown"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell"></i>
+                @if(auth()->user()->unreadNotifications->count())
+                <span class="badge badge-danger position-absolute" style="top: -5px; right: -5px; font-size: 10px;">
+                    {{ auth()->user()->unreadNotifications->count() }}
+                </span>
+                @endif
+            </button>
+
+            <div class="dropdown-menu notification-dropdown" aria-labelledby="notificationDropdown">
+                <div class="notification-header d-flex justify-content-between align-items-center">
+                    <span class="font-weight-bold">Notifications</span>
+                    @if(auth()->user()->unreadNotifications->count())
+                    <span class="badge badge-primary badge-pill small">{{ auth()->user()->unreadNotifications->count()
+                        }} New</span>
+                    @endif
+                </div>
+
+                <div class="notification-scroll">
+                    @forelse(auth()->user()->unreadNotifications as $notification)
+                    <a href="{{ route('notification.read', $notification->id) }}" class="notification-item">
+                        <div class="notification-content">
+                            <div class="notification-text">{{ $notification->data['message'] ?? 'New notification' }}
+                            </div>
+                            <div class="notification-time">{{ $notification->created_at->diffForHumans() }}</div>
+                        </div>
+                    </a>
+                    @empty
+                    <div class="p-4 text-center text-muted">
+                        <span class="small">No new notifications</span>
+                    </div>
+                    @endforelse
+                </div>
+            </div>
+        </div>
+
         {{-- User Dropdown --}}
         <div class="dropdown">
             <button class="btn btn-light btn-sm dropdown-toggle d-flex align-items-center" type="button"
@@ -60,6 +99,10 @@
                 <a class="dropdown-item" href="{{ route('posts.create') }}">
                     Create Post
                 </a>
+
+                {{-- <a class="dropdown-item" href="{{ route('trashed.post') }}">
+                    Trashed Posts
+                </a> --}}
 
                 <div class="dropdown-divider"></div>
 

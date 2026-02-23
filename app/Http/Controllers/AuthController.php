@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Jobs\LogUserRegistered;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -54,6 +55,7 @@ class AuthController extends Controller
         // dd($user->roles());
         Auth::login($user);
         $request->session()->regenerate();
+        LogUserRegistered::dispatch($user);
 
         return redirect()->route('posts.index')->with('message', 'Registered successfully');
 

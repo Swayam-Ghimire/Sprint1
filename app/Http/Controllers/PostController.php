@@ -73,7 +73,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        Gate::authorize('view', $post);
+        Gate::authorize('viewEdit', $post);
 
         $categories = Category::all();
 

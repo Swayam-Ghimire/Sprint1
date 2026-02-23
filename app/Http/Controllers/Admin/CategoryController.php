@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\AddedCategory;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -12,6 +14,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::latest()->paginate(10);
+
         return view('admin.categories.category', compact('categories'));
     }
 
@@ -28,10 +31,12 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255|unique:categories,name',
         ]);
 
-        Category::create($validated);
+        $category = Category::create($validated);
+
+        AddedCategory::dispatch($category);
 
         return redirect()->route('admin.category')
-                         ->with('message', 'Category created successfully.');
+            ->with('message', 'Category created successfully.');
     }
 
     // GET /admin/edit/{category}
@@ -44,21 +49,24 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $validated = $request->validate([
-            'name' => 'required|string'
+            'name' => 'required|string',
         ]);
 
         $category->update($validated);
 
         return redirect()->route('admin.category')
-                         ->with('message', 'Category updated successfully.');
+            ->with('message', 'Category updated successfully.');
     }
 
     // DELETE /admin/destroy/{category}
     public function delete(Category $category)
     {
+        if ($category->posts()->exists()) {
+            $category->posts()->delete();
+        }
         $category->delete();
 
         return redirect()->route('admin.category')
-                         ->with('message', 'Category deleted successfully.');
+            ->with('message', 'Category deleted successfully.');
     }
 }

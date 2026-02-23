@@ -8,18 +8,23 @@ use Illuminate\Support\Facades\Gate;
 
 class PostPolicy
 {
-    public function view(User $user, Post $post): bool
+    public function viewEdit(User $user, Post $post): bool
     {
-        return $user->id === $post->user_id || Gate::allows('isEditor') || Gate::allows('isAdmin');
+        return $user->id === $post->user_id || Gate::allows('isEditor');
+    }
+
+    public function viewDelete(User $user, Post $post)
+    {
+        return $user->id === $post->user_id || Gate::allows('isAdmin');
     }
 
     public function update(User $user, Post $post): bool
     {
-        return $user->id === $post->user_id || Gate::allows('isEditor') || Gate::allows('isAdmin');
+        return $user->id === $post->user_id || Gate::allows('isEditor');
     }
 
     public function delete(User $user, Post $post): bool
     {
-        return $user->id === $post->user_id || Gate::allows('isEditor') || Gate::allows('isAdmin');
+        return $user->id === $post->user_id || Gate::allows('isAdmin');
     }
 }

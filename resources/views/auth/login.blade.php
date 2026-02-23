@@ -1,5 +1,4 @@
 <x-layouts.app title="Login">
-
     <div class="d-flex align-items-center justify-content-center" style="min-height: 80vh;">
         <div class="card shadow-sm" style="width: 380px;">
 
