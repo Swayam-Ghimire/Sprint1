@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
+use Parsedown;
 
 class PostController extends Controller
 {
@@ -64,8 +65,10 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
-        return view('posts.show', compact('post'));
+        $parsedown = new Parsedown;
+        $contentHtml = $parsedown->text($post->content);
+
+        return view('posts.show', compact('post', 'contentHtml'));
     }
 
     /**

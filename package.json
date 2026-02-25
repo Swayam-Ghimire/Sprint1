@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^7.2.0",
+        "easymde": "^2.20.0",
         "font-awesome": "^4.7.0"
     }
 }

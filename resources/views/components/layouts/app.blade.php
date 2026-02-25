@@ -12,6 +12,8 @@
     {{--
     <link rel="stylesheet" href="{{ asset('dist/app.css') }}"> --}}
     {{-- Custom CSS --}}
+    <!-- EasyMDE CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <title>{{ $title ?? config('app.name') }}</title>
@@ -47,6 +49,8 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+    <!-- EasyMDE JS -->
+    <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
 
 </body>
 

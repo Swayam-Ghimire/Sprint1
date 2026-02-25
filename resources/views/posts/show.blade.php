@@ -35,7 +35,7 @@
 
                 <div class="mb-4">
                     <p class="lead"> {{-- Replaced fs-5 with lead for Bootstrap 4 compatibility --}}
-                        {{ $post->content }}
+                        {!! $contentHtml !!}
                     </p>
                 </div>
 
@@ -43,12 +43,14 @@
                 <div class="d-flex justify-content-between align-items-center mt-4"> {{-- Replaced Tailwind flex
                     utilities --}}
                     <div>
-                        @can('view', $post)
+                        @can('viewEdit', $post)
                         <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary me-2"> {{-- Added me-2 for
                             spacing --}}
                             Edit
                         </a>
 
+                        @endcan
+                        @can('viewDelete', $post)
                         <form action="{{ route('posts.destroy', $post->id) }}" method="POST" class="d-inline"> {{--
                             Ensured form is inline --}}
                             @csrf
@@ -57,15 +59,13 @@
                                 Delete
                             </button>
                         </form>
-                        @endcan
                     </div>
-                    <a href="{{ route('posts.index') }}" class="btn btn-outline-secondary"> {{-- Replaced ms-auto with
-                        ml-auto --}}
+                    @endcan
+                    <a href="{{ route('posts.index') }}" class="btn btn-outline-secondary ml-auto">
                         All Posts
                     </a>
                     @can('isAdmin')
-                    <a href="{{ route('admin.post') }}" class="btn btn-outline-secondary"> {{-- Replaced ms-auto with
-                        ml-auto --}}
+                    <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-secondary ml-2">
                         Dashboard
                     </a>
                     @endcan
